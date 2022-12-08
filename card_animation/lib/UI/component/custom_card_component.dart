@@ -41,9 +41,11 @@ class CustomCardComponent extends StatelessWidget {
               child: SidesBoxes(
                 pageController: pageController,
                 func: () {
-                  pageController.previousPage(
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.easeIn);
+                  if(pageController.page! > 0) {
+                    pageController.previousPage(
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeIn);
+                  }
                 },
                 icon: const Icon(
                   Icons.arrow_back_ios,
@@ -57,9 +59,11 @@ class CustomCardComponent extends StatelessWidget {
               child: SidesBoxes(
                 pageController: pageController,
                 func: () {
-                  pageController.nextPage(
+                  if(pageController.page! < 2) {
+                    pageController.nextPage(
                       duration: const Duration(milliseconds: 500),
                       curve: Curves.easeIn);
+                  }
                 },
                 icon: const Icon(
                   Icons.arrow_forward_ios,

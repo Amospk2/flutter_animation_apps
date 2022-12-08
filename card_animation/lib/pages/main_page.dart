@@ -27,6 +27,7 @@ class _MainPageState extends State<MainPage> {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
+                  SizedBox(height: size.height * 0.05,),
                   HeaderComponent(size: size),
                   Container(
                     padding: const EdgeInsets.all(8),

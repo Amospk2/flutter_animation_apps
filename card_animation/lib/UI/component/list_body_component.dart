@@ -62,7 +62,8 @@ class _ListBodyComponentState extends State<ListBodyComponent> {
         const CustomWidgetTransaction(
           text: "21, Setembro, 2022",
           leadingIcon: Icon(Icons.payment),
-        )
+        ),
+        SizedBox(height: 10,)
       ],
     );
   }

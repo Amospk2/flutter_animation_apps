@@ -13,7 +13,7 @@ class HeaderComponent extends StatelessWidget {
     return Stack(
       children: [
         SizedBox(
-          height: 150,
+          height: 130,
           width: size.width,
         ),
         Positioned(
@@ -49,12 +49,12 @@ class HeaderComponent extends StatelessWidget {
               onPressed: () {},
             )),
         const Positioned(
-          bottom: 15,
+          bottom: 20,
           left: 25,
           child: Text(
-            "Saldo: 4500,65",
+            "R 4500,65",
             style: TextStyle(
-                fontSize: 25, color: Colors.white, fontWeight: FontWeight.w700),
+                fontSize: 30, color: Colors.white, fontWeight: FontWeight.w700),
           ),
         )
       ],
