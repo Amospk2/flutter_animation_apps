@@ -1,6 +1,6 @@
 import 'package:animated_cards/features/card/presetation/controllers/main_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
 import '../component/flip_card.dart';
 import '../widgets/custom_elevated_button.dart';
 import 'create_new_card.dart';
@@ -27,8 +27,7 @@ class MainPage extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: CustomElevatedButton(
               callback: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const CreateNewCard()));
+                Get.to(() => const CreateNewCard());
               },
             ),
           )
