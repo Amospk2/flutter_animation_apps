@@ -1,7 +1,7 @@
+import 'package:animated_cards/features/card/presetation/controllers/main_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 import '../../../domain/entities/card_model.dart';
-import '../../controllers/main_provider.dart';
 import 'card_back.dart';
 import 'card_front.dart';
 import 'dart:math' as math;
@@ -46,15 +46,15 @@ class _FlipCardState extends State<FlipCard> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  void flipCard(MainProvider mainProvider)
+  void flipCard()
   {
-    if(mainProvider.cards[widget.index].isFlip == null)
+    if(Get.find<MainController>().cards[widget.index].isFlip == null)
     {
-      mainProvider.cards[widget.index].isFlip = false;
-      mainProvider.cards[widget.index].animationController = animationController;
+      Get.find<MainController>().cards[widget.index].isFlip = false;
+      Get.find<MainController>().cards[widget.index].animationController = animationController;
     }
 
-    mainProvider.flipCardWithProvider(mainProvider.cards[widget.index]);
+    Get.find<MainController>().flipCardWithStateManager(Get.find<MainController>().cards[widget.index]);
 
 
   }
@@ -62,12 +62,11 @@ class _FlipCardState extends State<FlipCard> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final mainProvider = context.read<MainProvider>();
-    mainProvider.cards[widget.index].animationController = animationController;
+    Get.find<MainController>().cards[widget.index].animationController = animationController;
 
     front = CardFront(
       callback: () async {
-        flipCard(mainProvider);
+        flipCard();
       },
       card: widget.cardModel,
       size: widget.size,
@@ -75,7 +74,7 @@ class _FlipCardState extends State<FlipCard> with TickerProviderStateMixin {
 
     back = CardBack(
       callback: () async {
-        flipCard(mainProvider);
+        flipCard();
       },
       card: widget.cardModel,
       size: widget.size,

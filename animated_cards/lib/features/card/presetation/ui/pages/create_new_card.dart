@@ -1,7 +1,6 @@
+import 'package:animated_cards/features/card/presetation/controllers/main_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../../controllers/main_provider.dart';
+import 'package:get/get.dart';
 import '../component/checkbox_list_items.dart';
 import '../component/flip_card_model.dart';
 import '../component/form_items.dart';
@@ -14,17 +13,18 @@ class CreateNewCard extends StatefulWidget {
 }
 
 class _CreateNewCardState extends State<CreateNewCard> {
-  late MainProvider mainProvider;
+  final controller = Get.find<MainController>();
+
 
   @override
   void dispose() {
-    mainProvider.modelCardModel.isFlip = null;
+    controller.resetFields();
+    controller.modelCardModel.isFlip = null;
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    mainProvider = context.read<MainProvider>();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -52,19 +52,20 @@ class _CreateNewCardState extends State<CreateNewCard> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            Consumer(
-              builder: (context, value, child) => FlipCardWithProvider(
-                cardModel: mainProvider.modelCardModel,
+            GetBuilder<MainController>(
+              init: controller,
+              builder: (_) => const FlipCardWithStateManager(
               ),
             ),
             const SizedBox(
               height: 25,
             ),
-            Consumer<MainProvider>(
-              builder: (context, value, child) =>
-                  CheckBoxListThemes(mainProvider: mainProvider),
+           GetBuilder<MainController>(
+              init: controller,
+              builder: (_) =>
+                  const CheckBoxListThemes(),
             ),
-            FormItems(mainProvider: mainProvider),
+            const FormItems(),
           ],
         ),
       ),
@@ -93,7 +94,7 @@ class _CreateNewCardState extends State<CreateNewCard> {
                 const Color.fromARGB(255, 26, 25, 25)),
           ),
           onPressed: () {
-            mainProvider.createNewCard();
+            Get.find<MainController>().createNewCard();
           },
           child: const Text(
             "+",

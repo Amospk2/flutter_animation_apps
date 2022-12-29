@@ -31,6 +31,16 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+/ios/
+/linux/
+/web/
+/test/
+/macos/
+/windows/
+.metadata
+.analysis_options.yaml
+.pubspec.lock
+.animated_cards.iml
 
 # Symbolication related
 app.*.symbols
@@ -40,10 +50,3 @@ app.*.map.json
 
 # Android Studio will place build artifacts here
 /android/
-/test/
-/web/
-/linux/
-.metadata
-analysis_options.yaml
-pubspec.lock
-

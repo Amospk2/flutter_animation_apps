@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import '../../domain/entities/card_model.dart';
 
-class MainProvider extends ChangeNotifier {
+class MainController extends GetxController {
+  static MainController get to => Get.find();
   TextEditingController cardNumber = TextEditingController();
   TextEditingController owner = TextEditingController();
   TextEditingController expDate = TextEditingController();
@@ -68,44 +69,44 @@ class MainProvider extends ChangeNotifier {
         "05/30")
   ];
 
-  Future flipCardWithProvider(CardModel card) async {
-    card.isFlip = !card.isFlip!;
-
+  Future flipCardWithStateManager(CardModel card) async {
+    card.isFlip = !(card.isFlip!);
+    
     if (card.isFlip!) {
       await card.animationController!.forward();
     } else {
       await card.animationController!.reverse();
     }
-    notifyListeners();
+    update();
   }
 
   void editCardNumber(String value) {
     if (value.length <= 19) {
       modelCardModel.cardNumber = cardNumber.text;
     }
-    notifyListeners();
+    update();
   }
 
   void editCardOwner(String value) {
     modelCardModel.owner = owner.text;
-    notifyListeners();
+    update();
   }
 
   void editCardCvv(String value) {
     modelCardModel.cvv = cvv.text;
-    notifyListeners();
+    update();
   }
 
   void editCardExp(String value) {
     modelCardModel.exp = expDate.text;
-    notifyListeners();
+    update();
   }
 
   void resetCheckBoxAndSetNewValue(int index, bool? newBool) {
     isCheck = [false, false, false, false];
     isCheck[index] = newBool;
     modelCardModel.gradient = choiceGradient(index);
-    notifyListeners();
+    update();
   }
 
   LinearGradient choiceGradient(int index) {
@@ -155,7 +156,7 @@ class MainProvider extends ChangeNotifier {
       resetFields();
     }
 
-    notifyListeners();
+    update();
   }
 
   void resetFields() {

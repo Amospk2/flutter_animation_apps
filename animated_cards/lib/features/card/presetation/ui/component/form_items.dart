@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../../../core/utils/card_formatter.dart';
-import '../../controllers/main_provider.dart';
+import '../../controllers/main_controller.dart';
 import '../widgets/custom_text_field.dart';
 
 class FormItems extends StatelessWidget {
   const FormItems({
     Key? key,
-    required this.mainProvider,
   }) : super(key: key);
 
-  final MainProvider mainProvider;
 
   @override
   Widget build(BuildContext context) {
@@ -21,85 +20,85 @@ class FormItems extends StatelessWidget {
             height: 10,
           ),
           CustomTextFild(
-            controller: mainProvider.cardNumber,
+            controller: Get.find<MainController>().cardNumber,
             limiteLength: 19,
             label: "Card Number",
             tapCallback: () {
-              if (mainProvider.modelCardModel.isFlip != null) {
-                if (mainProvider.modelCardModel.isFlip!) {
-                  mainProvider
-                      .flipCardWithProvider(mainProvider.modelCardModel);
+              if (Get.find<MainController>().modelCardModel.isFlip != null) {
+                if (Get.find<MainController>().modelCardModel.isFlip!) {
+                  Get.find<MainController>()
+                      .flipCardWithStateManager(Get.find<MainController>().modelCardModel);
                 }
               }
             },
             inputFormatters: [
               CardFormatter(separator: " "),
             ],
-            callback: (String value) => mainProvider.editCardNumber(value),
+            callback: (String value) => Get.find<MainController>().editCardNumber(value),
           ),
           const SizedBox(
             height: 10,
           ),
           CustomTextFild(
-            controller: mainProvider.owner,
+            controller: Get.find<MainController>().owner,
             label: "Owner",
             limiteLength: 25,
             tapCallback: () {
-              if (mainProvider.modelCardModel.isFlip != null) {
-                if (mainProvider.modelCardModel.isFlip!) {
-                  mainProvider
-                      .flipCardWithProvider(mainProvider.modelCardModel);
+              if (Get.find<MainController>().modelCardModel.isFlip != null) {
+                if (Get.find<MainController>().modelCardModel.isFlip!) {
+                  Get.find<MainController>()
+                      .flipCardWithStateManager(Get.find<MainController>().modelCardModel);
                 }
               }
             },
-            callback: (String value) => mainProvider.editCardOwner(value),
+            callback: (String value) => Get.find<MainController>().editCardOwner(value),
           ),
           const SizedBox(
             height: 10,
           ),
           CustomTextFild(
-            controller: mainProvider.expDate,
+            controller: Get.find<MainController>().expDate,
             label: "Expiration Date",
             limiteLength: 5,
             readOnly: true,
             tapCallback: () async {
               var date = await showDatePicker(
                   context: context,
-                  initialDate: DateTime(2022, 01, 01),
+                  initialDate: DateTime.now(),
                   firstDate: DateTime(1999, 01, 01),
                   lastDate: DateTime(2050, 01, 01));
               if (date != null) {
-                mainProvider.expDate.text =
-                    "${date.month < 10 ? "0${date.month}" : date.month}/${date.year.toString()[0]}${date.year.toString()[0]}";
+                Get.find<MainController>().expDate.text =
+                    "${date.month < 10 ? "0${date.month}" : date.month}/${date.year.toString()[2]}${date.year.toString()[3]}";
               }
 
-              if (mainProvider.modelCardModel.isFlip != null) {
-                if (mainProvider.modelCardModel.isFlip!) {
+              if (Get.find<MainController>().modelCardModel.isFlip != null) {
+                if (Get.find<MainController>().modelCardModel.isFlip!) {
                   {
-                    mainProvider
-                        .flipCardWithProvider(mainProvider.modelCardModel);
+                    Get.find<MainController>()
+                        .flipCardWithStateManager(Get.find<MainController>().modelCardModel);
                   }
                 }
               }
             },
-            callback: (String value) => mainProvider.editCardExp(value),
+            callback: (String value) => Get.find<MainController>().editCardExp(value),
           ),
           const SizedBox(
             height: 10,
           ),
           CustomTextFild(
-            controller: mainProvider.cvv,
+            controller: Get.find<MainController>().cvv,
             limiteLength: 3,
             tapCallback: () {
-              if (mainProvider.modelCardModel.isFlip != null) {
-                if (!mainProvider.modelCardModel.isFlip!) {
-                  mainProvider
-                      .flipCardWithProvider(mainProvider.modelCardModel);
+              if (Get.find<MainController>().modelCardModel.isFlip != null) {
+                if (!Get.find<MainController>().modelCardModel.isFlip!) {
+                  Get.find<MainController>()
+                      .flipCardWithStateManager(Get.find<MainController>().modelCardModel);
                 }
               }
             },
             label: "CVV",
-            callback: (String value) => mainProvider.editCardCvv(value),
+            callback: (String value) => Get.find<MainController>().editCardCvv(value),
           ),
         ],
       ),

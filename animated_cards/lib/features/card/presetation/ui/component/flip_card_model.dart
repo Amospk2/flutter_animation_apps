@@ -1,30 +1,29 @@
+import 'package:animated_cards/features/card/presetation/controllers/main_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 import 'dart:math' as math;
-
-import '../../../domain/entities/card_model.dart';
-import '../../controllers/main_provider.dart';
 import 'card_back.dart';
 import 'card_front.dart';
 
 
 
-class FlipCardWithProvider extends StatefulWidget {
-  final CardModel cardModel;
+class FlipCardWithStateManager extends StatefulWidget {
 
-  const FlipCardWithProvider({Key? key, required this.cardModel}) : super(key: key);
+
+  const FlipCardWithStateManager({Key? key}) : super(key: key);
 
   @override
-  State<FlipCardWithProvider> createState() => _FlipCardWithProviderState();
+  State<FlipCardWithStateManager> createState() => _FlipCardWithStateManagerState();
 }
 
-class _FlipCardWithProviderState extends State<FlipCardWithProvider>
+class _FlipCardWithStateManagerState extends State<FlipCardWithStateManager>
     with TickerProviderStateMixin {
   late Animation<double> rotateY;
   late AnimationController animationController;
 
   late CardFront front;
   late CardBack back;
+  final controller = Get.find<MainController>();
 
   @override
   initState() {
@@ -35,24 +34,24 @@ class _FlipCardWithProviderState extends State<FlipCardWithProvider>
     );
   }
 
-  void flipCard(MainProvider mainProvider) {
-    if (mainProvider.modelCardModel.isFlip == null) {
-      mainProvider.modelCardModel.isFlip = false;
-      mainProvider.modelCardModel.animationController = animationController;
+  void flipCard() {
+    if (controller.modelCardModel.isFlip == null) {
+      controller.modelCardModel.isFlip = false;
+      controller.modelCardModel.animationController = animationController;
     }
-
-    mainProvider.flipCardWithProvider(mainProvider.modelCardModel);
+    
+    controller.flipCardWithStateManager(controller.modelCardModel);
   }
 
   @override
   build(BuildContext context) {
-    final mainContext = context.read<MainProvider>();
     var size = MediaQuery.of(context).size;
-    mainContext.modelCardModel.isFlip = false;
-    mainContext.modelCardModel.animationController = animationController;
+    controller.modelCardModel.isFlip = false;
+    controller.modelCardModel.animationController = animationController;
 
-    return Consumer<MainProvider>(
-      builder: (context, value, child) => AnimatedBuilder(
+    return GetBuilder<MainController>(
+      init: controller,
+      builder: (_) => AnimatedBuilder(
         animation: animationController,
         builder: (context, child) {
           final angle = animationController.value * -math.pi;
@@ -67,9 +66,9 @@ class _FlipCardWithProviderState extends State<FlipCardWithProvider>
                     alignment: Alignment.center,
                     child: CardFront(
                       callback: () async {
-                        flipCard(mainContext);
+                        flipCard();
                       },
-                      card: widget.cardModel,
+                      card: controller.modelCardModel,
                       size: size,
                     ),
                   )
@@ -78,9 +77,9 @@ class _FlipCardWithProviderState extends State<FlipCardWithProvider>
                     alignment: Alignment.center,
                     child: CardBack(
                       callback: () async {
-                        flipCard(mainContext);
+                        flipCard();
                       },
-                      card: widget.cardModel,
+                      card: controller.modelCardModel,
                       size: size,
                     ),
                   ),

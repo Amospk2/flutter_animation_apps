@@ -1,7 +1,6 @@
+import 'package:animated_cards/features/card/presetation/controllers/main_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../../controllers/main_provider.dart';
+import 'package:get/state_manager.dart';
 import '../component/flip_card.dart';
 import '../widgets/custom_elevated_button.dart';
 import 'create_new_card.dart';
@@ -35,15 +34,16 @@ class MainPage extends StatelessWidget {
           )
         ],
       ),
-      body: Consumer<MainProvider>(
-        builder: (context, value, child) {
+      body: GetBuilder<MainController>(
+        init: MainController(),
+        builder: (_) {
           return SizedBox(
             height: MediaQuery.of(context).size.height * 0.98,
             child: ListView.builder(
-              itemCount: value.cards.length,
+              itemCount: _.cards.length,
               scrollDirection: Axis.vertical,
               itemBuilder: (context, index) => FlipCard(
-                cardModel: value.cards[index],
+                cardModel: _.cards[index],
                 size: MediaQuery.of(context).size,
                 index: index,
               ),

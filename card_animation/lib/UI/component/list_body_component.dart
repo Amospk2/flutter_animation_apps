@@ -63,7 +63,7 @@ class _ListBodyComponentState extends State<ListBodyComponent> {
           text: "21, Setembro, 2022",
           leadingIcon: Icon(Icons.payment),
         ),
-        SizedBox(height: 10,)
+        const SizedBox(height: 10,)
       ],
     );
   }
