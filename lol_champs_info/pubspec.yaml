@@ -1,0 +1,38 @@
+name: lol_champs_info
+description: A new Flutter project.
+
+publish_to: 'none' 
+
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.6 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  mobx:
+  flutter_mobx:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  build_runner:
+  mobx_codegen:
+  flutter_lints: ^2.0.0
+
+flutter:
+
+  uses-material-design: true
+  fonts:
+    - family: Indies
+      fonts:
+        - asset: fonts/IndieFlower-Regular.ttf
+  assets:
+    - assets/
+
